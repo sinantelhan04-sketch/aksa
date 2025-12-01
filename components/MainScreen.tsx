@@ -136,276 +136,195 @@ const MainScreen: React.FC<MainScreenProps> = ({ onLogout, username, isUnrestric
     };
 
     return (
-        <div className="w-full max-w-6xl mx-auto space-y-4 sm:space-y-6 pb-20 sm:pb-0">
+        <div className="w-full max-w-5xl mx-auto space-y-4 pb-16 px-2 sm:px-4">
             
-            {/* Üst Bar (Logo ve Çıkış) */}
-            <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-md rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 p-3 sm:p-4 flex justify-between items-center sticky top-2 z-40">
-                 <div className="flex items-center gap-3">
-                    <div className="bg-blue-50 dark:bg-blue-900/30 p-1.5 sm:p-2 rounded-xl">
-                        <img src="https://www.aksadogalgaz.com.tr/img/kurumsal-kimlik/Aksa_Dogalgaz.jpg" alt="Aksa Logo" className="h-6 sm:h-8 w-auto mix-blend-multiply dark:mix-blend-normal" />
-                    </div>
-                    <div>
-                        <h1 className="font-bold text-gray-800 dark:text-white leading-tight text-sm sm:text-lg">Tesisat Sorgulama</h1>
-                        <p className="text-[10px] sm:text-xs text-gray-500 font-medium tracking-wide flex flex-col sm:flex-row sm:items-center sm:gap-1">
-                            <span>PERSONEL: <span className="text-blue-600 dark:text-blue-400 font-bold">{username}</span></span>
-                            {isUnrestricted && <span className="inline-block w-fit mt-0.5 sm:mt-0 text-green-600 dark:text-green-400 font-bold text-[9px] bg-green-100 dark:bg-green-900/30 px-1.5 py-0.5 rounded">TAM ERİŞİM</span>}
-                        </p>
+            {/* Sadeleştirilmiş Üst Bar */}
+            <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-3 flex justify-between items-center">
+                 <div className="flex items-center gap-2">
+                    <img src="https://www.aksadogalgaz.com.tr/img/kurumsal-kimlik/Aksa_Dogalgaz.jpg" alt="Logo" className="h-6 w-auto" />
+                    <div className="hidden sm:block w-px h-6 bg-gray-200 dark:bg-gray-700 mx-2"></div>
+                    <div className="flex flex-col">
+                        <span className="text-xs font-bold text-gray-400 uppercase tracking-wider">Personel</span>
+                        <span className="text-sm font-bold text-gray-800 dark:text-gray-200 leading-none">{username}</span>
                     </div>
                  </div>
                  <button 
                     onClick={onLogout}
-                    className="group flex items-center gap-2 px-3 py-2 sm:px-4 sm:py-2 bg-red-50 hover:bg-red-100 dark:bg-red-900/20 dark:hover:bg-red-900/40 text-red-600 dark:text-red-300 rounded-lg transition-all text-sm font-medium border border-red-100 dark:border-red-900/50"
+                    className="text-xs font-medium text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 px-3 py-1.5 rounded-lg transition-colors border border-red-100 dark:border-red-900/30"
                 >
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-                    </svg>
-                    <span className="hidden sm:inline">Çıkış</span>
+                    Çıkış Yap
                 </button>
             </div>
 
-            {/* Arama Alanı (Hero Section) */}
-            <div className="bg-white dark:bg-gray-800 rounded-3xl shadow-xl p-4 sm:p-10 relative overflow-hidden">
-                {/* Dekoratif Arkaplan Efektleri */}
-                <div className="absolute top-0 right-0 -mr-20 -mt-20 w-64 h-64 bg-blue-400/10 rounded-full blur-3xl"></div>
-                <div className="absolute bottom-0 left-0 -ml-20 -mb-20 w-64 h-64 bg-cyan-400/10 rounded-full blur-3xl"></div>
-
-                <div className="relative z-10 max-w-3xl mx-auto text-center space-y-4 sm:space-y-6">
-                    <h2 className="text-xl sm:text-3xl font-bold text-gray-800 dark:text-white">
-                        Tesisat <span className="text-blue-600 dark:text-blue-400">Sorgulama</span>
-                    </h2>
-                    
-                    <div className="relative group">
-                        <div className="absolute -inset-1 bg-gradient-to-r from-blue-600 to-cyan-500 rounded-2xl blur opacity-20 group-hover:opacity-40 transition duration-500"></div>
+            {/* Sadeleştirilmiş Arama Alanı */}
+            <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-4">
+                <h2 className="text-lg font-bold text-gray-800 dark:text-white mb-3 flex items-center gap-2">
+                    <span className="p-1.5 bg-blue-100 dark:bg-blue-900/30 text-blue-600 rounded-lg">
+                        <SearchIcon />
+                    </span>
+                    Tesisat Sorgulama
+                </h2>
+                
+                <div className="relative">
+                    <div className="flex flex-col sm:flex-row gap-2">
+                        <div className="relative flex-grow">
+                             <input
+                                type="text"
+                                value={searchTerm}
+                                onChange={(e) => {
+                                    setSearchTerm(e.target.value);
+                                    setShowRecents(true);
+                                }}
+                                onFocus={() => setShowRecents(true)}
+                                onBlur={() => setTimeout(() => setShowRecents(false), 200)}
+                                placeholder="Tesisat numarasını girin..."
+                                disabled={loading}
+                                className="w-full pl-4 pr-4 py-3 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-all font-medium text-base h-12"
+                            />
+                        </div>
                         
-                        {/* Search Box Container */}
-                        <div className="relative flex flex-col sm:flex-row shadow-2xl rounded-2xl bg-white dark:bg-gray-900 overflow-hidden border border-gray-100 dark:border-gray-800 sm:border-0">
-                            
-                            {/* Input Field Area */}
-                            <div className="relative flex-grow flex items-center bg-white dark:bg-gray-900 z-10">
-                                <div className="absolute left-4 text-gray-400 pointer-events-none">
-                                    <SearchIcon />
-                                </div>
-                                <input
-                                    type="text"
-                                    value={searchTerm}
-                                    onChange={(e) => {
-                                        setSearchTerm(e.target.value);
-                                        setShowRecents(true);
-                                    }}
-                                    onFocus={() => setShowRecents(true)}
-                                    onBlur={() => setTimeout(() => setShowRecents(false), 200)}
-                                    placeholder="Tesisat numarasını girin"
-                                    disabled={loading}
-                                    className="w-full py-4 sm:py-5 pl-12 sm:pl-14 pr-4 text-base sm:text-lg bg-transparent border-none focus:ring-0 text-gray-900 dark:text-white placeholder-gray-400 font-medium outline-none"
-                                />
-                            </div>
-                            
-                            {/* Buttons Area - Mobilde altta, masaüstünde sağda */}
-                            <div className="p-2 flex gap-2 sm:border-l border-gray-100 dark:border-gray-800 bg-gray-50 dark:bg-gray-800/50 sm:bg-transparent z-10">
-                                {(searchTerm || foundCustomer) && (
-                                    <button 
-                                        onClick={handleClear}
-                                        className="flex-1 sm:flex-none py-3 sm:py-0 px-4 rounded-xl font-bold text-gray-500 bg-white sm:bg-transparent border sm:border-0 border-gray-200 dark:border-gray-700 hover:bg-red-50 hover:text-red-600 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-red-900/20 dark:hover:text-red-300 transition-colors text-sm sm:text-base shadow-sm sm:shadow-none"
-                                    >
-                                        Temizle
-                                    </button>
-                                )}
-                                <button
-                                    onClick={handleSearchClick}
-                                    disabled={loading || !searchTerm.trim()}
-                                    className="flex-1 sm:flex-none bg-blue-600 hover:bg-blue-700 text-white px-6 sm:px-8 py-3 sm:py-0 rounded-xl font-bold text-base sm:text-lg shadow-lg hover:shadow-blue-500/30 transition-all transform active:scale-95 disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                        <div className="flex gap-2 h-12">
+                            {(searchTerm || foundCustomer) && (
+                                <button 
+                                    onClick={handleClear}
+                                    className="px-4 bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-600 dark:text-gray-300 rounded-lg font-medium transition-colors text-sm"
                                 >
-                                    {loading ? <div className="animate-spin h-5 w-5 border-2 border-white border-t-transparent rounded-full" /> : 'Sorgula'}
+                                    Temizle
                                 </button>
+                            )}
+                            <button
+                                onClick={handleSearchClick}
+                                disabled={loading || !searchTerm.trim()}
+                                className="flex-1 sm:flex-none px-6 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-bold shadow-sm transition-all active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed text-sm uppercase tracking-wide"
+                            >
+                                {loading ? '...' : 'SORGULA'}
+                            </button>
+                        </div>
+                    </div>
+
+                    {/* Dropdown Menu */}
+                    {showRecents && recentSearches.length > 0 && (
+                        <div className="absolute top-full left-0 right-0 mt-2 bg-white dark:bg-gray-800 rounded-lg shadow-xl border border-gray-100 dark:border-gray-700 overflow-hidden z-30">
+                            <div className="max-h-48 overflow-y-auto">
+                                {recentSearches.map((term, i) => (
+                                    <button 
+                                        key={i}
+                                        onMouseDown={() => handleRecentClick(term)}
+                                        className="w-full text-left px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors flex items-center gap-3 border-b border-gray-50 dark:border-gray-700/50 last:border-0"
+                                    >
+                                        <ClockIcon className="h-4 w-4 text-gray-400" />
+                                        <span className="text-sm text-gray-700 dark:text-gray-200">{term}</span>
+                                    </button>
+                                ))}
                             </div>
                         </div>
-
-                        {/* Dropdown Menu */}
-                        {showRecents && recentSearches.length > 0 && (
-                            <div className="absolute top-full left-0 right-0 mt-3 bg-white dark:bg-gray-800 rounded-xl shadow-2xl border border-gray-100 dark:border-gray-700 overflow-hidden z-30 animate-fade-in-up origin-top">
-                                <div className="px-5 py-3 bg-gray-50 dark:bg-gray-700/50 border-b border-gray-100 dark:border-gray-700 flex justify-between items-center">
-                                    <span className="text-xs font-bold text-gray-500 uppercase tracking-wider">Son Aramalar</span>
-                                    <button onClick={clearRecents} className="text-xs text-red-500 hover:text-red-600 font-medium">Temizle</button>
-                                </div>
-                                <div className="max-h-60 overflow-y-auto">
-                                    {recentSearches.map((term, i) => (
-                                        <button 
-                                            key={i}
-                                            onMouseDown={() => handleRecentClick(term)}
-                                            className="w-full text-left px-5 py-3.5 hover:bg-blue-50 dark:hover:bg-gray-700/50 transition-colors flex items-center gap-3 border-b border-gray-50 dark:border-gray-700/50 last:border-0"
-                                        >
-                                            <span className="bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 p-1.5 rounded-lg">
-                                                <ClockIcon className="h-4 w-4" />
-                                            </span>
-                                            <span className="font-mono text-gray-700 dark:text-gray-200 font-medium">{term}</span>
-                                            <span className="ml-auto text-gray-300">
-                                                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
-                                            </span>
-                                        </button>
-                                    ))}
-                                </div>
-                            </div>
-                        )}
-                    </div>
+                    )}
                 </div>
             </div>
 
             {/* Hata Mesajı */}
             {error && (
-                <div className="bg-red-50 dark:bg-red-900/20 border-l-4 border-red-500 p-4 rounded-r-xl animate-shake flex items-start gap-4 shadow-sm">
-                    <div className="bg-red-100 dark:bg-red-800/30 p-2 rounded-full text-red-600 dark:text-red-300">
-                        <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
-                    </div>
-                    <div>
-                        <h3 className="font-bold text-red-800 dark:text-red-200">Sorgulama Başarısız</h3>
-                        <p className="text-sm text-red-700 dark:text-red-300 mt-1">{error}</p>
-                    </div>
+                <div className="bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-300 p-3 rounded-lg text-sm font-medium border border-red-100 dark:border-red-900/30 flex items-center gap-2 animate-shake">
+                    <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
+                    {error}
                 </div>
             )}
 
             {/* Sonuç Alanı */}
             {!loading && foundCustomer && (
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 animate-fade-in-up pb-10">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 animate-fade-in-up">
                     
-                    {/* Sol: Abone Bilgi Kartı */}
-                    <div className="bg-white dark:bg-gray-800 rounded-3xl shadow-lg border border-gray-100 dark:border-gray-700 overflow-hidden flex flex-col order-2 lg:order-1">
-                        <div className="bg-gradient-to-r from-blue-600 to-blue-500 p-6 flex items-center justify-between text-white">
-                            <div className="flex items-center gap-4">
-                                <div className="p-3 bg-white/20 backdrop-blur-sm rounded-xl hidden sm:block">
+                    {/* Abone Bilgi Kartı */}
+                    <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md border-l-4 border-blue-500 overflow-hidden p-5 flex flex-col justify-between">
+                        <div>
+                            <div className="flex justify-between items-start mb-4">
+                                <div>
+                                    <p className="text-xs text-gray-400 uppercase font-bold tracking-wider mb-1">Tesisat No</p>
+                                    <p className="text-2xl font-bold text-blue-600 dark:text-blue-400 font-mono tracking-tight">{foundCustomer.installationNumber}</p>
+                                </div>
+                                <div className="p-2 bg-green-50 dark:bg-green-900/20 rounded-full">
                                     <UserIcon />
                                 </div>
+                            </div>
+                            
+                            <div className="space-y-4">
                                 <div>
-                                    <p className="text-blue-100 text-xs font-bold uppercase tracking-wider">Tesisat No</p>
-                                    <p className="text-2xl font-bold font-mono tracking-tight">{foundCustomer.installationNumber}</p>
+                                    <p className="text-xs text-gray-400 uppercase font-bold mb-1">Abone Adı</p>
+                                    <p className="text-lg font-bold text-gray-900 dark:text-white">{maskName(foundCustomer.name)}</p>
                                 </div>
-                            </div>
-                            <div className="bg-green-400/20 text-green-100 px-3 py-1 rounded-full text-xs font-bold border border-green-400/30">
-                                AKTİF
-                            </div>
-                        </div>
-
-                        <div className="p-6 sm:p-8 space-y-8 flex-grow">
-                            {/* İsim */}
-                            <div className="relative group">
-                                <div className="absolute left-0 top-1 bottom-1 w-1 bg-blue-500 rounded-full"></div>
-                                <div className="pl-5">
-                                    <label className="text-xs font-bold text-gray-400 uppercase tracking-wider">Ad Soyad</label>
-                                    <p className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mt-1">
-                                        {maskName(foundCustomer.name)}
+                                
+                                <div className="bg-gray-50 dark:bg-gray-700/30 p-3 rounded-lg border border-gray-100 dark:border-gray-700">
+                                    <p className="text-xs text-gray-400 uppercase font-bold mb-1 flex items-center gap-1">
+                                        <MapPinIcon /> Adres
                                     </p>
-                                </div>
-                            </div>
-
-                            {/* Telefon ve Aksiyonlar */}
-                            <div className="bg-gray-50 dark:bg-gray-700/30 p-5 rounded-2xl border border-gray-100 dark:border-gray-700">
-                                <label className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3 block">İletişim</label>
-                                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                                    <div className="flex items-center gap-3">
-                                        <PhoneIcon />
-                                        <span className="text-lg font-bold text-gray-800 dark:text-gray-200 font-mono tracking-tight">{foundCustomer.phone}</span>
-                                    </div>
-                                    <div className="flex gap-2">
-                                        <a 
-                                            href={`tel:${String(foundCustomer.phone).replace(/\s/g, "")}`}
-                                            className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded-xl font-bold shadow-md shadow-green-200 dark:shadow-none transition-transform active:scale-95"
-                                        >
-                                            <PhoneIconSolid />
-                                            <span>Ara</span>
-                                        </a>
-                                        <a 
-                                            href={`sms:${String(foundCustomer.phone).replace(/\s/g, "")}?body=${encodeURIComponent(`Sayın ${maskName(foundCustomer.name)}, Aksa Doğalgaz tesisat kontrolü için adresinize geldik ancak size ulaşamadık.`)}`}
-                                            className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-xl font-bold shadow-md shadow-blue-200 dark:shadow-none transition-transform active:scale-95"
-                                        >
-                                            <MessageIcon />
-                                            <span>SMS</span>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            {/* Adres */}
-                            <div>
-                                <label className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 block">Adres</label>
-                                <div className="flex items-start gap-3 p-4 border-2 border-dashed border-gray-200 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-800">
-                                    <div className="text-blue-500 mt-1">
-                                        <MapPinIcon />
-                                    </div>
-                                    <p className="text-gray-700 dark:text-gray-300 leading-relaxed font-medium">
+                                    <p className="text-sm text-gray-700 dark:text-gray-300 leading-snug">
                                         {foundCustomer.address}
                                     </p>
                                 </div>
                             </div>
                         </div>
+
+                        <div className="grid grid-cols-2 gap-3 mt-6 pt-4 border-t border-gray-100 dark:border-gray-700">
+                             <a 
+                                href={`tel:${String(foundCustomer.phone).replace(/\s/g, "")}`}
+                                className="flex flex-col items-center justify-center gap-1 py-3 bg-green-500 hover:bg-green-600 text-white rounded-lg transition-colors shadow-sm active:scale-95"
+                            >
+                                <PhoneIconSolid />
+                                <span className="text-xs font-bold uppercase">Ara</span>
+                            </a>
+                            <a 
+                                href={`sms:${String(foundCustomer.phone).replace(/\s/g, "")}?body=${encodeURIComponent(`Sayın ${maskName(foundCustomer.name)}, Aksa Doğalgaz tesisat kontrolü için adresinize geldik ancak size ulaşamadık.`)}`}
+                                className="flex flex-col items-center justify-center gap-1 py-3 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors shadow-sm active:scale-95"
+                            >
+                                <MessageIcon />
+                                <span className="text-xs font-bold uppercase">SMS</span>
+                            </a>
+                        </div>
                     </div>
 
-                    {/* Sağ: Harita */}
-                    <div className="flex flex-col h-full min-h-[300px] sm:min-h-[400px] order-1 lg:order-2">
-                         <div className="bg-white dark:bg-gray-800 rounded-3xl shadow-lg border border-gray-100 dark:border-gray-700 overflow-hidden flex-grow flex flex-col">
-                            <div className="p-4 border-b border-gray-100 dark:border-gray-700 flex justify-between items-center bg-gray-50/50 dark:bg-gray-700/20">
-                                <h3 className="font-bold text-gray-700 dark:text-gray-200 flex items-center gap-2 text-sm sm:text-base">
-                                    <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
-                                    Konum Bilgisi
-                                </h3>
+                    {/* Harita Kartı */}
+                    <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden flex flex-col h-[300px] lg:h-auto border border-gray-100 dark:border-gray-700">
+                        {mapEmbedUrl ? (
+                            <>
+                                <iframe
+                                    src={mapEmbedUrl}
+                                    width="100%"
+                                    height="100%"
+                                    className="flex-grow border-0"
+                                    allowFullScreen={false}
+                                    loading="lazy"
+                                    title="Google Maps"
+                                ></iframe>
                                 {externalMapUrl && (
                                     <a 
                                         href={externalMapUrl}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="flex items-center gap-2 text-xs font-bold bg-white dark:bg-gray-600 border border-gray-200 dark:border-gray-500 px-3 py-1.5 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-500 transition-colors shadow-sm text-gray-700 dark:text-gray-200"
+                                        className="bg-gray-50 dark:bg-gray-700 text-center py-3 text-sm font-bold text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-gray-600 transition-colors border-t border-gray-200 dark:border-gray-600"
                                     >
-                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-blue-500" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" /></svg>
-                                        Navigasyonu Aç
+                                        Harita Uygulamasında Aç ↗
                                     </a>
                                 )}
+                            </>
+                        ) : (
+                             <div className="flex-grow flex flex-col items-center justify-center bg-gray-100 dark:bg-gray-900 text-gray-400 p-6 text-center">
+                                <div className="mb-2 opacity-50"><MapPinIcon /></div>
+                                <span className="text-sm font-medium">Harita konumu bulunamadı.</span>
                             </div>
-                            
-                            <div className="flex-grow relative bg-gray-200 dark:bg-gray-900 min-h-[300px]">
-                                {mapEmbedUrl ? (
-                                    <iframe
-                                        src={mapEmbedUrl}
-                                        width="100%"
-                                        height="100%"
-                                        className="absolute inset-0"
-                                        style={{ border: 0 }}
-                                        allowFullScreen={false}
-                                        loading="lazy"
-                                        referrerPolicy="no-referrer-when-downgrade"
-                                        title="Google Maps"
-                                    ></iframe>
-                                ) : (
-                                    <div className="absolute inset-0 flex flex-col items-center justify-center text-gray-400 p-8 text-center">
-                                        <div className="bg-gray-100 dark:bg-gray-800 p-4 rounded-full mb-4">
-                                            <svg className="h-8 w-8 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" /></svg>
-                                        </div>
-                                        <p className="font-medium">Harita verisi oluşturulamadı.</p>
-                                        <p className="text-xs mt-2">Koordinat veya adres bilgisi eksik olabilir.</p>
-                                    </div>
-                                )}
-                            </div>
-                         </div>
+                        )}
                     </div>
                 </div>
             )}
 
-            {/* Empty State */}
-            {!loading && !foundCustomer && !error && !searchPerformed && (
-                <div className="text-center py-16 opacity-40">
-                    <div className="inline-block p-6 rounded-full bg-gray-100 dark:bg-gray-800 mb-4">
-                        <SearchIcon />
-                    </div>
-                    <p className="text-gray-500 dark:text-gray-400 font-medium">Sorgulama yapmak için yukarıdaki alanı kullanın.</p>
-                </div>
-            )}
-
-             <style>{`
+            <style>{`
                 .animate-fade-in-up {
-                    animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+                    animation: fadeInUp 0.4s ease-out forwards;
                 }
                 .animate-shake {
                      animation: shake 0.4s cubic-bezier(.36,.07,.19,.97) both; 
                 }
                 @keyframes fadeInUp {
-                    from { opacity: 0; transform: translateY(20px); }
+                    from { opacity: 0; transform: translateY(10px); }
                     to { opacity: 1; transform: translateY(0); }
                 }
                 @keyframes shake { 10%, 90% { transform: translate3d(-1px, 0, 0); } 20%, 80% { transform: translate3d(2px, 0, 0); } 30%, 50%, 70% { transform: translate3d(-4px, 0, 0); } 40%, 60% { transform: translate3d(4px, 0, 0); } }
