@@ -1,0 +1,7 @@
+{
+  "name": "google veri tabanlı Tesisat Sorgulama",
+  "description": "Yetkili personelin mesai saatleri içerisinde tesisat numarası ile abone bilgilerini ve konumunu sorgulaması için bir uygulama. Konum detayları için Google Haritalar entegrasyonlu Gemini kullanır.",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}
