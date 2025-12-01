@@ -136,25 +136,25 @@ const MainScreen: React.FC<MainScreenProps> = ({ onLogout, username, isUnrestric
     };
 
     return (
-        <div className="w-full max-w-6xl mx-auto space-y-6">
+        <div className="w-full max-w-6xl mx-auto space-y-4 sm:space-y-6 pb-20 sm:pb-0">
             
             {/* Üst Bar (Logo ve Çıkış) */}
-            <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-md rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 p-4 flex justify-between items-center">
+            <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-md rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 p-3 sm:p-4 flex justify-between items-center sticky top-2 z-40">
                  <div className="flex items-center gap-3">
-                    <div className="bg-blue-50 dark:bg-blue-900/30 p-2 rounded-xl">
-                        <img src="https://www.aksadogalgaz.com.tr/img/kurumsal-kimlik/Aksa_Dogalgaz.jpg" alt="Aksa Logo" className="h-8 w-auto mix-blend-multiply dark:mix-blend-normal" />
+                    <div className="bg-blue-50 dark:bg-blue-900/30 p-1.5 sm:p-2 rounded-xl">
+                        <img src="https://www.aksadogalgaz.com.tr/img/kurumsal-kimlik/Aksa_Dogalgaz.jpg" alt="Aksa Logo" className="h-6 sm:h-8 w-auto mix-blend-multiply dark:mix-blend-normal" />
                     </div>
                     <div>
-                        <h1 className="font-bold text-gray-800 dark:text-white leading-tight">Tesisat Sorgulama</h1>
-                        <p className="text-[10px] text-gray-500 font-medium tracking-wide">
-                            YETKİLİ PERSONEL: <span className="text-blue-600 dark:text-blue-400 font-bold">{username}</span>
-                            {isUnrestricted && <span className="ml-2 text-green-600 dark:text-green-400 font-bold text-[9px] bg-green-100 dark:bg-green-900/30 px-1.5 py-0.5 rounded">TAM ERİŞİM</span>}
+                        <h1 className="font-bold text-gray-800 dark:text-white leading-tight text-sm sm:text-lg">Tesisat Sorgulama</h1>
+                        <p className="text-[10px] sm:text-xs text-gray-500 font-medium tracking-wide flex flex-col sm:flex-row sm:items-center sm:gap-1">
+                            <span>PERSONEL: <span className="text-blue-600 dark:text-blue-400 font-bold">{username}</span></span>
+                            {isUnrestricted && <span className="inline-block w-fit mt-0.5 sm:mt-0 text-green-600 dark:text-green-400 font-bold text-[9px] bg-green-100 dark:bg-green-900/30 px-1.5 py-0.5 rounded">TAM ERİŞİM</span>}
                         </p>
                     </div>
                  </div>
                  <button 
                     onClick={onLogout}
-                    className="group flex items-center gap-2 px-4 py-2 bg-red-50 hover:bg-red-100 dark:bg-red-900/20 dark:hover:bg-red-900/40 text-red-600 dark:text-red-300 rounded-lg transition-all text-sm font-medium border border-red-100 dark:border-red-900/50"
+                    className="group flex items-center gap-2 px-3 py-2 sm:px-4 sm:py-2 bg-red-50 hover:bg-red-100 dark:bg-red-900/20 dark:hover:bg-red-900/40 text-red-600 dark:text-red-300 rounded-lg transition-all text-sm font-medium border border-red-100 dark:border-red-900/50"
                 >
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
@@ -164,40 +164,48 @@ const MainScreen: React.FC<MainScreenProps> = ({ onLogout, username, isUnrestric
             </div>
 
             {/* Arama Alanı (Hero Section) */}
-            <div className="bg-white dark:bg-gray-800 rounded-3xl shadow-xl p-6 sm:p-10 relative overflow-hidden">
+            <div className="bg-white dark:bg-gray-800 rounded-3xl shadow-xl p-4 sm:p-10 relative overflow-hidden">
                 {/* Dekoratif Arkaplan Efektleri */}
                 <div className="absolute top-0 right-0 -mr-20 -mt-20 w-64 h-64 bg-blue-400/10 rounded-full blur-3xl"></div>
                 <div className="absolute bottom-0 left-0 -ml-20 -mb-20 w-64 h-64 bg-cyan-400/10 rounded-full blur-3xl"></div>
 
-                <div className="relative z-10 max-w-3xl mx-auto text-center space-y-6">
-                    <h2 className="text-2xl sm:text-3xl font-bold text-gray-800 dark:text-white">
+                <div className="relative z-10 max-w-3xl mx-auto text-center space-y-4 sm:space-y-6">
+                    <h2 className="text-xl sm:text-3xl font-bold text-gray-800 dark:text-white">
                         Tesisat <span className="text-blue-600 dark:text-blue-400">Sorgulama</span>
                     </h2>
                     
                     <div className="relative group">
                         <div className="absolute -inset-1 bg-gradient-to-r from-blue-600 to-cyan-500 rounded-2xl blur opacity-20 group-hover:opacity-40 transition duration-500"></div>
-                        <div className="relative flex shadow-2xl rounded-2xl bg-white dark:bg-gray-900">
-                            <div className="pl-6 flex items-center pointer-events-none text-gray-400">
-                                <SearchIcon />
+                        
+                        {/* Search Box Container */}
+                        <div className="relative flex flex-col sm:flex-row shadow-2xl rounded-2xl bg-white dark:bg-gray-900 overflow-hidden border border-gray-100 dark:border-gray-800 sm:border-0">
+                            
+                            {/* Input Field Area */}
+                            <div className="relative flex-grow flex items-center bg-white dark:bg-gray-900 z-10">
+                                <div className="absolute left-4 text-gray-400 pointer-events-none">
+                                    <SearchIcon />
+                                </div>
+                                <input
+                                    type="text"
+                                    value={searchTerm}
+                                    onChange={(e) => {
+                                        setSearchTerm(e.target.value);
+                                        setShowRecents(true);
+                                    }}
+                                    onFocus={() => setShowRecents(true)}
+                                    onBlur={() => setTimeout(() => setShowRecents(false), 200)}
+                                    placeholder="Tesisat numarasını girin"
+                                    disabled={loading}
+                                    className="w-full py-4 sm:py-5 pl-12 sm:pl-14 pr-4 text-base sm:text-lg bg-transparent border-none focus:ring-0 text-gray-900 dark:text-white placeholder-gray-400 font-medium outline-none"
+                                />
                             </div>
-                            <input
-                                type="text"
-                                value={searchTerm}
-                                onChange={(e) => {
-                                    setSearchTerm(e.target.value);
-                                    setShowRecents(true);
-                                }}
-                                onFocus={() => setShowRecents(true)}
-                                onBlur={() => setTimeout(() => setShowRecents(false), 200)}
-                                placeholder="Tesisat numarasını girin (Örn: 100123456)"
-                                disabled={loading}
-                                className="w-full py-5 px-4 text-lg bg-transparent border-none focus:ring-0 text-gray-900 dark:text-white placeholder-gray-400 font-medium"
-                            />
-                            <div className="p-2 flex gap-2">
+                            
+                            {/* Buttons Area - Mobilde altta, masaüstünde sağda */}
+                            <div className="p-2 flex gap-2 sm:border-l border-gray-100 dark:border-gray-800 bg-gray-50 dark:bg-gray-800/50 sm:bg-transparent z-10">
                                 {(searchTerm || foundCustomer) && (
                                     <button 
                                         onClick={handleClear}
-                                        className="px-4 rounded-xl font-medium text-gray-500 hover:bg-red-50 hover:text-red-600 dark:text-gray-400 dark:hover:bg-red-900/20 dark:hover:text-red-300 transition-colors"
+                                        className="flex-1 sm:flex-none py-3 sm:py-0 px-4 rounded-xl font-bold text-gray-500 bg-white sm:bg-transparent border sm:border-0 border-gray-200 dark:border-gray-700 hover:bg-red-50 hover:text-red-600 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-red-900/20 dark:hover:text-red-300 transition-colors text-sm sm:text-base shadow-sm sm:shadow-none"
                                     >
                                         Temizle
                                     </button>
@@ -205,7 +213,7 @@ const MainScreen: React.FC<MainScreenProps> = ({ onLogout, username, isUnrestric
                                 <button
                                     onClick={handleSearchClick}
                                     disabled={loading || !searchTerm.trim()}
-                                    className="bg-blue-600 hover:bg-blue-700 text-white px-8 rounded-xl font-bold text-lg shadow-lg hover:shadow-blue-500/30 transition-all transform active:scale-95 disabled:opacity-70 disabled:cursor-not-allowed flex items-center gap-2"
+                                    className="flex-1 sm:flex-none bg-blue-600 hover:bg-blue-700 text-white px-6 sm:px-8 py-3 sm:py-0 rounded-xl font-bold text-base sm:text-lg shadow-lg hover:shadow-blue-500/30 transition-all transform active:scale-95 disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                                 >
                                     {loading ? <div className="animate-spin h-5 w-5 border-2 border-white border-t-transparent rounded-full" /> : 'Sorgula'}
                                 </button>
@@ -257,13 +265,13 @@ const MainScreen: React.FC<MainScreenProps> = ({ onLogout, username, isUnrestric
 
             {/* Sonuç Alanı */}
             {!loading && foundCustomer && (
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 animate-fade-in-up">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 animate-fade-in-up pb-10">
                     
                     {/* Sol: Abone Bilgi Kartı */}
-                    <div className="bg-white dark:bg-gray-800 rounded-3xl shadow-lg border border-gray-100 dark:border-gray-700 overflow-hidden flex flex-col">
+                    <div className="bg-white dark:bg-gray-800 rounded-3xl shadow-lg border border-gray-100 dark:border-gray-700 overflow-hidden flex flex-col order-2 lg:order-1">
                         <div className="bg-gradient-to-r from-blue-600 to-blue-500 p-6 flex items-center justify-between text-white">
                             <div className="flex items-center gap-4">
-                                <div className="p-3 bg-white/20 backdrop-blur-sm rounded-xl">
+                                <div className="p-3 bg-white/20 backdrop-blur-sm rounded-xl hidden sm:block">
                                     <UserIcon />
                                 </div>
                                 <div>
@@ -331,10 +339,10 @@ const MainScreen: React.FC<MainScreenProps> = ({ onLogout, username, isUnrestric
                     </div>
 
                     {/* Sağ: Harita */}
-                    <div className="flex flex-col h-full min-h-[400px]">
+                    <div className="flex flex-col h-full min-h-[300px] sm:min-h-[400px] order-1 lg:order-2">
                          <div className="bg-white dark:bg-gray-800 rounded-3xl shadow-lg border border-gray-100 dark:border-gray-700 overflow-hidden flex-grow flex flex-col">
                             <div className="p-4 border-b border-gray-100 dark:border-gray-700 flex justify-between items-center bg-gray-50/50 dark:bg-gray-700/20">
-                                <h3 className="font-bold text-gray-700 dark:text-gray-200 flex items-center gap-2">
+                                <h3 className="font-bold text-gray-700 dark:text-gray-200 flex items-center gap-2 text-sm sm:text-base">
                                     <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
                                     Konum Bilgisi
                                 </h3>
@@ -351,7 +359,7 @@ const MainScreen: React.FC<MainScreenProps> = ({ onLogout, username, isUnrestric
                                 )}
                             </div>
                             
-                            <div className="flex-grow relative bg-gray-200 dark:bg-gray-900">
+                            <div className="flex-grow relative bg-gray-200 dark:bg-gray-900 min-h-[300px]">
                                 {mapEmbedUrl ? (
                                     <iframe
                                         src={mapEmbedUrl}
